@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <img src="../static/smarty-logo-blue.png" alt="smartystreets logo" width="268" height="75"/>
+
     <Autocomplete/>
+
   </div>
 </template>
 

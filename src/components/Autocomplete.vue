@@ -1,7 +1,11 @@
 <template>
   <div class="autocomplete">
+
     <InputForm :data="this"/>
 
+    <span>위는 InputForm.vue
+      <br/>
+      바로 밑에 찍히는 것 :  Autocomplete.vue</span>
     <div v-for="suggestion in suggestions">
       <div class="autocomplete--suggestion" v-on:click="() => selectSuggestion(suggestion)">
         {{ formatSuggestion(suggestion,this.country.iso2).address }}

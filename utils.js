@@ -1,15 +1,17 @@
 import * as SmartySDK from "smartystreets-javascript-sdk";
 import * as sdkUtils from "smartystreets-javascript-sdk-utils";
-import countries from "./src/data/countries";
+
+import countries from "./src/data/countries"; //export const countries = [ new Country("United States", "US"),  .. ]
 
 const SmartyCore = SmartySDK.core;
-const websiteKey = ""; // Your website key here
+const websiteKey = "203011517077459015"; // Your website key here
 const smartySharedCredentials = new SmartyCore.SharedCredentials(websiteKey);
 
 const autoCompleteClient = new SmartyCore.ClientBuilder(smartySharedCredentials).withLicenses(["us-autocomplete-pro-cloud"]).buildUsAutocompleteProClient();
 const internationalAutocompleteClient = new SmartyCore.ClientBuilder(smartySharedCredentials).withLicenses(["international-autocomplete-v2-cloud"]).buildInternationalAddressAutocompleteClient();
 const usStreetClient = new SmartyCore.ClientBuilder(smartySharedCredentials).buildUsStreetApiClient();
 const internationalStreetClient = new SmartyCore.ClientBuilder(smartySharedCredentials).buildInternationalStreetClient();
+
 
 export function formatSuggestion(suggestion, country) {
   const entries = suggestion.entries > 1 ? ` (${suggestion.entries} more entries)` : "";
@@ -35,7 +37,7 @@ export function formatSuggestion(suggestion, country) {
 }
 
 export function queryAutocompleteForSuggestions(query) {
-  if (!this.country.iso2) this.country = countries[0]
+  if (!this.country.iso2) this.country = countries[0];
   if (this.country.iso2 === "US") {
     this.client = autoCompleteClient;
     this.lookup = new SmartySDK.usAutocompletePro.Lookup(query);

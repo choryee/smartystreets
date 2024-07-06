@@ -14,8 +14,8 @@
       />
     </div>
 
-    <div class="autocomplete--input-group" v-for="inputField in inputFields">
-      <label class="autocomplete--input-label" :for="inputField.fieldName">
+    <div v-for="inputField in inputFields" class="autocomplete--input-group"  >
+      <label :for="inputField.fieldName"  class="autocomplete--input-label" >
         {{ inputField.fieldLabel }}
       </label>
 
@@ -27,10 +27,12 @@
         @input="data.queryAutocompleteForSuggestions(data.address1)"
       />
     </div>
+
     <div class="autocomplete--input-group">
       <label class="autocomplete--input-label" for="country">
         Country
       </label>
+
       <select
           id="country"
           class="autocomplete--input-field"
@@ -40,10 +42,16 @@
           {{ country.name }}
         </option>
       </select>
+
     </div>
 
     <button v-on:click="e => {e.preventDefault(); data.validateAddress();}">Validate</button>
+
   </form>
+  <div>
+    :data="this"로 받은 것 <br/>
+    {{data}}
+  </div>
 </template>
 
 <script>
@@ -52,10 +60,13 @@ import countries from "../data/countries";
 
 export default {
   name: "InputForm",
+
   data() {
     return {
-      inputFields,
-      countries,
+      //inputFields,
+      inputFields : inputFields,
+      // countries,
+      countries : countries
     };
   },
   props: {
