@@ -22,8 +22,8 @@
 </template>
 
 <script>
-//        v-on:click="() => selectSuggestion(suggestion)">
-// 위 11라인은 원래 코드에서 위였음.
+//        v-on:click="selectSuggestion(suggestion)">
+// 위처럼 가져오는 값이 하나만 가져옴. 배열이 아니라.
 
 import InputForm from "./InputForm";
 

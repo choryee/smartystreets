@@ -61,3 +61,24 @@ import Country from "./models/Country";
 export const countries = [
     new Country("United States", "US"),
     ...];
+
+---
+Autocomplete.vue
+
+<div class="autocomplete--suggestion"
+           v-on:click="() => selectSuggestion(suggestion)">
+에서 v-on:click="() => selectSuggestion(suggestion)"와 v-on:click="selectSuggestion(suggestion)"의 차이는?
+<--chatGPT. vue.js에서 검색하라.
+
+--
+{{ formatSuggestion(suggestion, this.country.iso2).address }}
+formatSuggestion(suggestion, this.country.iso2)의 리턴값의 .address인 듯.
+
+--
+selectSuggestion(suggestion) <-- 이건 주소창에 일부 주소 칠때.
+|
+queryAutocompleteForSuggestions(suggestion);
+|
+queryAutocompleteForSuggestions(query)
+    this.lookup의 키:값 세팅후, 서버 api호출후
+    this.suggestions = response.result;함.

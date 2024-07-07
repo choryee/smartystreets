@@ -15,7 +15,7 @@ const internationalStreetClient = new SmartyCore.ClientBuilder(smartySharedCrede
 
 export function formatSuggestion(suggestion, country) {
   const entries = suggestion.entries > 1 ? ` (${suggestion.entries} more entries)` : "";
-  if (country === "US") {
+  if (country === "US") {  // this.country.iso2 == "US" 일때
     const secondary = suggestion.secondary ? ` ${suggestion.secondary}` : "";
     const address = suggestion.streetLine + secondary + entries + " " + suggestion.city + ", " + suggestion.state + " " + suggestion.zipcode;
     const selected = suggestion.streetLine + secondary + " (" + suggestion.entries + ") " + suggestion.city + ", " + suggestion.state + " " + suggestion.zipcode;
@@ -25,7 +25,7 @@ export function formatSuggestion(suggestion, country) {
       address: address,
       selected,
     };
-  } else {
+  } else { // this.country.iso2 == "US" 아닐때,
     const address = suggestion.addressText + entries;
     const selected = suggestion.addressText;
     const addressId = suggestion.addressId;
@@ -42,13 +42,13 @@ export function queryAutocompleteForSuggestions(query) {
   console.log('주소 입력시. queryAutocompleteForSuggestions this >>>',  this);
   if (! this.country.iso2) this.country = countries[0];
 
-  if (this.country.iso2 === "US") {
+  if (this.country.iso2 === "US") { //미국일때,
     this.client = autoCompleteClient;
     this.lookup = new SmartySDK.usAutocompletePro.Lookup(query);
     if (query.entries > 1) {
       this.lookup.selected = formatSuggestion(query, this.country.iso2).selected;
     }
-  } else {
+  } else { //미국이 아닐때,
     this.client = internationalAutocompleteClient;
     if (query.entries > 1) {
       this.lookup = new SmartySDK.internationalAddressAutocomplete.Lookup(
