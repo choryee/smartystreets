@@ -49,8 +49,8 @@
 
   </form>
   <div>
-    :data="this"로 받은 것 <br/>
-    {{data}}
+    :data="this"로 받은 것.주석 풀라. <br/>
+<!--    {{data}}-->
   </div>
 </template>
 
@@ -63,7 +63,7 @@ export default {
 
   data() {
     return {
-      //inputFields,
+      //inputFields, 아래와 같은것. 키와 값이 같을때,
       inputFields : inputFields,
       // countries,
       countries : countries
@@ -72,6 +72,9 @@ export default {
   props: {
     "data": Object,
   },
+  mounted() {
+    console.log(' InputForm data >>>',  this.data);
+  }
 };
 </script>
 

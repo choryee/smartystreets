@@ -21,7 +21,8 @@ export function formatSuggestion(suggestion, country) {
     const selected = suggestion.streetLine + secondary + " (" + suggestion.entries + ") " + suggestion.city + ", " + suggestion.state + " " + suggestion.zipcode;
 
     return {
-      address,
+      //address, 아래와 같은 것.
+      address: address,
       selected,
     };
   } else {
@@ -29,7 +30,8 @@ export function formatSuggestion(suggestion, country) {
     const selected = suggestion.addressText;
     const addressId = suggestion.addressId;
     return {
-      address,
+      //address, 아래와 같은 것.
+      address: address,
       selected,
       addressId,
     }
@@ -37,7 +39,9 @@ export function formatSuggestion(suggestion, country) {
 }
 
 export function queryAutocompleteForSuggestions(query) {
-  if (!this.country.iso2) this.country = countries[0];
+  console.log('주소 입력시. queryAutocompleteForSuggestions this >>>',  this);
+  if (! this.country.iso2) this.country = countries[0];
+
   if (this.country.iso2 === "US") {
     this.client = autoCompleteClient;
     this.lookup = new SmartySDK.usAutocompletePro.Lookup(query);
@@ -47,9 +51,12 @@ export function queryAutocompleteForSuggestions(query) {
   } else {
     this.client = internationalAutocompleteClient;
     if (query.entries > 1) {
-      this.lookup = new SmartySDK.internationalAddressAutocomplete.Lookup({addressId: formatSuggestion(query, this.country.iso2).addressId})
+      this.lookup = new SmartySDK.internationalAddressAutocomplete.Lookup(
+          {addressId: formatSuggestion(query, this.country.iso2).addressId})
     }
     this.lookup = new SmartySDK.internationalAddressAutocomplete.Lookup(query);
+
+    // lookup={search:query, country:this.country.iso2}만드는 것.
     this.lookup.search = query;
     this.lookup.country = this.country.iso2;
   }
@@ -67,6 +74,7 @@ export function queryAutocompleteForSuggestions(query) {
 function useAutocompleteSuggestion(suggestion, here) {
   if (here.country.iso2 === "US") {
     const secondary = suggestion.secondary ? ` ${suggestion.secondary}` : "";
+    //here.xx인거 보니, here는 객체일것. 거기에 키:값 설정해눈 것. 밑.
     here.address1 = suggestion.streetLine + secondary;
     here.city = suggestion.city;
     here.state = suggestion.state;

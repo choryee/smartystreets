@@ -7,8 +7,10 @@
       <br/>
       바로 밑에 찍히는 것 :  Autocomplete.vue</span>
     <div v-for="suggestion in suggestions">
-      <div class="autocomplete--suggestion" v-on:click="() => selectSuggestion(suggestion)">
-        {{ formatSuggestion(suggestion,this.country.iso2).address }}
+      <div class="autocomplete--suggestion"
+           v-on:click="() => selectSuggestion(suggestion)">
+
+        {{ formatSuggestion(suggestion, this.country.iso2).address }}
       </div>
     </div>
 
@@ -20,6 +22,9 @@
 </template>
 
 <script>
+//        v-on:click="() => selectSuggestion(suggestion)">
+// 위 11라인은 원래 코드에서 위였음.
+
 import InputForm from "./InputForm";
 
 import {
@@ -33,6 +38,7 @@ import {
 export default {
   name: "Autocomplete",
   components: {InputForm},
+
   data() {
     return {
       shouldValidate: true,
@@ -46,6 +52,7 @@ export default {
       error: "",
     };
   },
+
   methods: {
     queryAutocompleteForSuggestions,
     selectSuggestion,
